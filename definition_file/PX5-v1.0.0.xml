@@ -1,0 +1,1709 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PlatformExtension>
+    <EventCodes>
+        <EventGroup name="Core">
+            <Event code="1" type="TraceStart" />
+            <Event code="2" type="TimestampConfig" />
+            <Event code="3" type="ObjectName" />
+            <Event code="5" type="IsrProperties" />
+            <Event code="32" type="TaskReady" />
+            <Event code="33" type="SwitchToInterrupt"/>
+            <Event code="37" type="SwitchToTask"/>
+            <Event code="1154" service="Core/px5_pthread_start" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="Time">
+            <Event code="1000" service="Time/clock_getres" type="KernelServiceReturn" status="StatusOK" >
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1001" service="Time/clock_gettime" type="KernelServiceReturn" status="StatusOK" >
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1002" service="Time/clock_settime" type="KernelServiceReturn" status="StatusOK" >
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1197" service="Time/time" type="KernelServiceReturn" status="StatusOK" >
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1157" service="Time/px5_pthread_ticks_get" type="KernelServiceReturn" status="StatusOK" />
+        </EventGroup>
+        <EventGroup name="Sleep">
+            <Event code="1011" service="Sleep/nanosleep" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1196" service="Sleep/sleep" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1198" service="Sleep/usleep" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1156" service="Sleep/px5_pthread_tick_sleep" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="MemoryManager">
+            <Event code="1117" service="MemoryManager/px5_pthread_memory_manager_enable" type="KernelServiceReturn" status="StatusOK" />
+            <Event code="1118" service="MemoryManager/px5_pthread_memory_manager_get" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1119" service="MemoryManager/px5_pthread_memory_manager_set" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="Errno">
+            <Event code="1059" service="Errno/errno_get" type="KernelServiceReturn" status="StatusOK"/>
+            <Event code="1060" service="Errno/errno_set" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="Thread">
+            <Event code="1070" service="Thread/pthread_attr_getcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1071" service="Thread/pthread_attr_getcontrolsize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1012" service="Thread/pthread_attr_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1013" service="Thread/pthread_attr_getdetachstate" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1072" service="Thread/pthread_attr_getname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1073" service="Thread/pthread_attr_getpriority" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1014" service="Thread/pthread_attr_getstackaddr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1015" service="Thread/pthread_attr_getstacksize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1074" service="Thread/pthread_attr_gettimeslice" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1016" service="Thread/pthread_attr_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1017" service="Thread/pthread_attr_setdetachstate" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1076" service="Thread/pthread_attr_setname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1077" service="Thread/pthread_attr_setpriority" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1018" service="Thread/pthread_attr_setstackaddr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1019" service="Thread/pthread_attr_setstacksize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1075" service="Thread/pthread_attr_setcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1078" service="Thread/pthread_attr_settimeslice" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1033" type="ObjectState">
+                <Param index="0" type="Handle" class="Task"/>
+                <Param index="1" type="Int32" useAs="StateAfter"/>
+                <FollowWith key="AddThreadCreate" />
+            </Event>
+            <Event key="AddThreadCreate" service="Thread/pthread_create" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" class="Thread" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1034" service="Thread/pthread_detach" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1020" service="Thread/pthread_cancel" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1036" service="Thread/pthread_exit" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1037" service="Thread/pthread_getaffinity_np" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1116" service="Thread/px5_pthread_information_get" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1038" service="Thread/pthread_join" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1039" service="Thread/pthread_kill" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1152" service="Thread/px5_pthread_resume" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1053" service="Thread/pthread_self" type="KernelServiceReturn" status="StatusOK" />
+            <Event code="1151" service="Thread/px5_pthread_priority_change" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" class="Task" useAs="Arg" />
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+                <FollowWith key="AddPriorityChange" />
+            </Event>
+            <Event key="AddPriorityChange" type="PriorityChange">
+                <Param index="0" type="Handle" class="Task" useAs="Actor" />
+                <Param index="1" type="UInt32" useAs="Priority" />
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1054" service="Thread/pthread_setaffinity_np" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1055" service="Thread/pthread_setcancelstate" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1056" service="Thread/pthread_setcanceltype" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1057" service="Thread/pthread_sigmask" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1153" service="Thread/pthread_stack_check" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1155" service="Thread/px5_pthread_suspend" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1058" service="Thread/pthread_testcancel" type="KernelServiceReturn" status="StatusOK" />
+            <Event code="1035" service="Thread/pthread_equal" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1021" service="Thread/pthread_cleanup_pop" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Int32" useAs="Arg"/>
+            </Event>
+            <Event code="1022" service="Thread/pthread_cleanup_push" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1179" service="Thread/sched_yield" type="KernelServiceReturn" status="StatusOK" />
+        </EventGroup>
+        <EventGroup name="ConditionVariable">
+            <Event code="1023" service="ConditionVariable/pthread_cond_broadcast" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1024" service="ConditionVariable/pthread_cond_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1025" service="ConditionVariable/pthread_cond_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1026" service="ConditionVariable/pthread_cond_signal" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1027" service="ConditionVariable/pthread_cond_timedwait" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="Handle" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1028" service="ConditionVariable/pthread_cond_wait" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1029" service="ConditionVariable/pthread_condattr_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1079" service="ConditionVariable/px5_pthread_condattr_getcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1080" service="ConditionVariable/px5_pthread_condattr_getcontrolsize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1081" service="ConditionVariable/px5_pthread_condattr_getname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1030" service="ConditionVariable/pthread_condattr_getpshared" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1031" service="ConditionVariable/pthread_condattr_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1082" service="ConditionVariable/px5_pthread_condattr_setcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1083" service="ConditionVariable/px5_pthread_condattr_setname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1032" service="ConditionVariable/pthread_condattr_setpshared" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="Int32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="EventFlags">
+            <Event code="1084" service="EventFlags/px5_pthread_event_flags_clear" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1085" service="EventFlags/px5_pthread_event_flags_create" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1086" service="EventFlags/px5_pthread_event_flags_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1087" service="EventFlags/px5_pthread_event_flags_set" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1088" service="EventFlags/px5_pthread_event_flags_timedwait" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="Int32" useAs="Arg"/>
+            </Event>
+            <Event code="1089" service="EventFlags/px5_pthread_event_flags_trywait" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="Int32" useAs="Arg"/>
+            </Event>
+            <Event code="1090" service="EventFlags/px5_pthread_event_flags_wait" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="Int32" useAs="Arg"/>
+            </Event>
+            <Event code="1091" service="EventFlags/px5_pthread_event_flagsattr_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1092" service="EventFlags/px5_pthread_event_flagsattr_getcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1093" service="EventFlags/px5_pthread_event_flagsattr_getcontrolsize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1094" service="EventFlags/px5_pthread_event_flagsattr_getname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1095" service="EventFlags/px5_pthread_event_flagsattr_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1096" service="EventFlags/px5_pthread_event_flagsattr_setcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1097" service="EventFlags/px5_pthread_event_flagsattr_setname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="FastQueue">
+            <Event code="1098" service="FastQueue/px5_pthread_fastqueue_create" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1099" service="FastQueue/px5_pthread_fastqueue_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1100" service="FastQueue/px5_pthread_fastqueue_receive" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1101" service="FastQueue/px5_pthread_fastqueue_send" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1102" service="FastQueue/px5_pthread_fastqueue_timedreceive" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1103" service="FastQueue/px5_pthread_fastqueue_timedsend" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1104" service="FastQueue/px5_pthread_fastqueue_tryreceive" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1105" service="FastQueue/px5_pthread_fastqueue_trysend" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1106" service="FastQueue/px5_pthread_fastqueueattr_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1107" service="FastQueue/px5_pthread_fastqueueattr_getcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1108" service="FastQueue/px5_pthread_fastqueueattr_getcontrolsize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1109" service="FastQueue/px5_pthread_fastqueueattr_getname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1110" service="FastQueue/px5_pthread_fastqueueattr_getqueueaddr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1111" service="FastQueue/px5_pthread_fastqueueattr_getqueuesize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1112" service="FastQueue/px5_pthread_fastqueueattr_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1113" service="FastQueue/px5_pthread_fastqueueattr_setcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1114" service="FastQueue/px5_pthread_fastqueueattr_setname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1115" service="FastQueue/px5_pthread_fastqueueattr_setqueueaddr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="MemoryPool">
+            <Event code="1120" service="MemoryPool/px5_pthread_memorypool_allocate" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1121" service="MemoryPool/px5_pthread_memorypool_create" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1122" service="MemoryPool/px5_pthread_memorypool_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1123" service="MemoryPool/px5_pthread_memorypool_free" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1124" service="MemoryPool/px5_pthread_memorypool_timedallocate" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1125" service="MemoryPool/px5_pthread_memorypool_tryallocate" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1126" service="MemoryPool/px5_pthread_memorypoolattr_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1127" service="MemoryPool/px5_pthread_memorypoolattr_getcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1128" service="MemoryPool/px5_pthread_memorypoolattr_getcontrolsize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1129" service="MemoryPool/px5_pthread_memorypoolattr_getname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1130" service="MemoryPool/px5_pthread_memorypoolattr_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1131" service="MemoryPool/px5_pthread_memorypoolattr_setcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1132" service="MemoryPool/px5_pthread_memorypoolattr_setname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="Mutex">
+            <Event code="1040" service="Mutex/pthread_mutex_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1041" service="Mutex/pthread_mutex_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1042" service="Mutex/pthread_mutex_lock" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1043" service="Mutex/pthread_mutex_trylock" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1044" service="Mutex/pthread_mutex_unlock" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1045" service="Mutex/pthread_mutexattr_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1133" service="Mutex/px5_pthread_mutexattr_getcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1134" service="Mutex/px5_pthread_mutexattr_getcontrolsize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1135" service="Mutex/px5_pthread_mutexattr_getname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1046" service="Mutex/pthread_mutexattr_getprotocol" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1047" service="Mutex/pthread_mutexattr_getpshared" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1048" service="Mutex/pthread_mutexattr_gettype" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1049" service="Mutex/pthread_mutexattr_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1136" service="Mutex/px5_pthread_mutexattr_setcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1137" service="Mutex/px5_pthread_mutexattr_setname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1050" service="Mutex/pthread_mutexattr_setprotocol" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1051" service="Mutex/pthread_mutexattr_setpshared" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1052" service="Mutex/pthread_mutexattr_settype" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="PartitionPool">
+            <Event code="1138" service="PartitionPool/pthread_partitionpool_allocate" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1139" service="PartitionPool/pthread_partitionpool_create" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1140" service="PartitionPool/pthread_partitionpool_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1141" service="PartitionPool/pthread_partitionpool_free" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1142" service="PartitionPool/pthread_partitionpool_timedallocate" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1143" service="PartitionPool/pthread_partitionpool_tryallocate" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1144" service="PartitionPool/pthread_partitionpoolattr_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1145" service="PartitionPool/pthread_partitionpoolattr_getcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1146" service="PartitionPool/pthread_partitionpoolattr_getcontrolsize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1147" service="PartitionPool/pthread_partitionpoolattr_getname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1148" service="PartitionPool/pthread_partitionpoolattr_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1149" service="PartitionPool/pthread_partitionpoolattr_setcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1150" service="PartitionPool/pthread_partitionpoolattr_setname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="TickTimer">
+            <Event code="1158" service="TickTimer/px5_pthread_ticktimer_create" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1159" service="TickTimer/px5_pthread_ticktimer_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1160" service="TickTimer/px5_pthread_ticktimer_start" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1161" service="TickTimer/px5_pthread_ticktimer_stop" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1162" service="TickTimer/px5_pthread_ticktimer_update" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1163" service="TickTimer/px5_pthread_ticktimerattr_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1164" service="TickTimer/px5_pthread_ticktimerattr_getcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1165" service="TickTimer/px5_pthread_ticktimerattr_getcontrolsize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1166" service="TickTimer/px5_pthread_ticktimerattr_getname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1167" service="TickTimer/px5_pthread_ticktimerattr_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1168" service="TickTimer/px5_pthread_ticktimerattr_setcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1169" service="TickTimer/px5_pthread_ticktimerattr_setname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="Semaphore">
+            <Event code="1180" service="Semaphore/sem_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1170" service="Semaphore/px5_sem_extend_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1181" service="Semaphore/sem_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1182" service="Semaphore/sem_post" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1171" service="Semaphore/px5_sem_tickwait" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1183" service="Semaphore/sem_timedwait" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1184" service="Semaphore/sem_trywait" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1185" service="Semaphore/sem_wait" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1172" service="Semaphore/px5_semattr_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1173" service="Semaphore/px5_semattr_getcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1174" service="Semaphore/px5_semattr_getcontrolsize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1175" service="Semaphore/px5_semattr_getname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1176" service="Semaphore/px5_semattr_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1177" service="Semaphore/px5_semattr_setcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1178" service="Semaphore/px5_semattr_setname" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="Signal">
+            <Event code="1186" service="Signal/sigaction" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1187" service="Signal/sigaddset" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1188" service="Signal/sigdelset" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1189" service="Signal/sigemptyset" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1190" service="Signal/sigfillset" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1191" service="Signal/sigismember" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1192" service="Signal/sigpending" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1193" service="Signal/sigtimedwait" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1194" service="Signal/sigwait" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1195" service="Signal/sigwaitinfo" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="MessageQueue">
+            <Event code="1003" service="MessageQueue/mq_close" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1061" service="MessageQueue/px5_mq_extend_open" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1062" service="MessageQueue/px5_mq_extendattr_destroy" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+            </Event>
+            <Event code="1063" service="MessageQueue/px5_mq_extendattr_getcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1064" service="MessageQueue/px5_mq_extendattr_getcontrolsize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1065" service="MessageQueue/px5_mq_extendattr_getqueueaddr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1066" service="MessageQueue/px5_mq_extendattr_getqueuesize" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1067" service="MessageQueue/px5_mq_extendattr_init" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1068" service="MessageQueue/px5_mq_extendattr_setcontroladdr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1069" service="MessageQueue/px5_mq_extendattr_setqueueaddr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="UInt32" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1004" service="MessageQueue/mq_getattr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1005" service="MessageQueue/mq_open" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1006" service="MessageQueue/mq_receive" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1007" service="MessageQueue/mq_send" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1008" service="MessageQueue/mq_setattr" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1009" service="MessageQueue/mq_timedreceive" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+            <Event code="1010" service="MessageQueue/mq_timedsend" type="KernelServiceReturn" status="StatusOK">
+                <Param index="0" type="Handle" useAs="Arg"/>
+                <Param index="1" type="UInt32" useAs="Arg"/>
+                <Param index="2" type="UInt32" useAs="Arg"/>
+            </Event>
+        </EventGroup>
+        <EventGroup name="UserEvent">
+            <Event code="80" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" type="String" useAs="Message"></Param>
+            </Event>
+            <Event code="81" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" type="String" useAs="Message"></Param>
+            </Event>
+            <Event code="82" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" useAs="PrintfArgStart"></Param>
+                <Param index="2" type="String" useAs="Message"></Param>
+            </Event>
+            <Event code="83" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" useAs="PrintfArgStart"></Param>
+                <Param index="3" type="String" useAs="Message"></Param>
+            </Event>
+            <Event code="84" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" useAs="PrintfArgStart"></Param>
+                <Param index="4" type="String" useAs="Message"></Param>
+            </Event>
+            <Event code="85" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" useAs="PrintfArgStart"></Param>
+                <Param index="5" type="String" useAs="Message"></Param>
+            </Event>
+            <Event code="86" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" useAs="PrintfArgStart"></Param>
+                <Param index="6" type="String" useAs="Message"></Param>
+            </Event>
+            <Event code="87" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" useAs="PrintfArgStart"></Param>
+                <Param index="7" type="String" useAs="Message"></Param>
+            </Event>
+            <Event code="88" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" type="StringHandle" useAs="Message"></Param>
+            </Event>
+            <Event code="89" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" type="StringHandle" useAs="Message"></Param>
+                <Param index="2" useAs="PrintfArgStart"></Param>
+            </Event>
+            <Event code="90" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" type="StringHandle" useAs="Message"></Param>
+                <Param index="2" useAs="PrintfArgStart"></Param>
+            </Event>
+            <Event code="91" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" type="StringHandle" useAs="Message"></Param>
+                <Param index="2" useAs="PrintfArgStart"></Param>
+            </Event>
+            <Event code="92" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" type="StringHandle" useAs="Message"></Param>
+                <Param index="2" useAs="PrintfArgStart"></Param>
+            </Event>
+            <Event code="93" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" type="StringHandle" useAs="Message"></Param>
+                <Param index="2" useAs="PrintfArgStart"></Param>
+            </Event>
+            <Event code="94" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" type="StringHandle" useAs="Message"></Param>
+                <Param index="2" useAs="PrintfArgStart"></Param>
+            </Event>
+            <Event code="95" type="UserEvent">
+                <Param index="0" type="StringHandle" useAs="Channel"></Param>
+                <Param index="1" type="StringHandle" useAs="Message"></Param>
+                <Param index="2" useAs="PrintfArgStart"></Param>
+            </Event>
+        </EventGroup>
+    </EventCodes>
+    <TargetPlatform>
+        <KernelServiceGroups>
+            <KernelServiceGroup name="Core">
+                <KernelService name="px5_pthread_start">
+                    <Parameter name="runtime_id" format="runtime_id: {0}" />
+                    <Parameter name="memory_start" format="memory_start: 0x{0:X8}"/>
+                    <Parameter name="memory_size" format="memory_size: {0}"/>
+                </KernelService>
+            </KernelServiceGroup>
+            <KernelServiceGroup name="Time">
+                <KernelService name="clock_getres" >
+                    <Parameter name="clock_id" format="clock_id: {0}" />
+                    <Parameter name="resolution" format="resolution: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="clock_gettime" >
+                    <Parameter name="clock_id" format="clock_id: {0}" />
+                    <Parameter name="current_time" format="current_time: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="clock_settime" >
+                    <Parameter name="clock_id" format="clock_id: {0}" />
+                    <Parameter name="new_time" format="new_time: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="time" >
+                    <Parameter name="return_seconds" format="return_seconds: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="px5_pthread_ticks_get" parameters="None" />
+            </KernelServiceGroup>
+            <KernelServiceGroup name="Errno">
+                <KernelService name="errno_get" parameters="None" />
+                <KernelService name="errno_set">
+                    <Parameter name="error" format="error: {0}" />
+                </KernelService>
+            </KernelServiceGroup>
+            <KernelServiceGroup name="Sleep">
+                <KernelService name="nanosleep">
+                    <Parameter name="request_time" format="request_time: 0x{0:X8}" />
+                    <Parameter name="remaining_time" format="remaining_time: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="sleep">
+                    <Parameter name="seconds" format="seconds: {0}" />
+                </KernelService>
+                <KernelService name="usleep">
+                    <Parameter name="microseconds" format="microseconds: {0}" />
+                </KernelService>
+                <KernelService name="px5_pthread_tick_sleep">
+                    <Parameter name="ticks_to_sleep" format="ticks_to_sleep: {0}" />
+                </KernelService>
+            </KernelServiceGroup>
+            <KernelServiceGroup name="MemoryManager">
+                <KernelService name="px5_pthread_memory_manager_enable" parameters="None" />
+                <KernelService name="px5_pthread_memory_manager_get">
+                    <Parameter name="memory_allocate_destination" format="memory_allocate_destination: 0x{0:X8}" />
+                    <Parameter name="memory_release_destination" format="memory_release_destination: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="px5_pthread_memory_manager_set">
+                    <Parameter name="memory_allocate_pointer" format="memory_allocate_pointer: 0x{0:X8}" />
+                    <Parameter name="memory_release_pointer" format="memory_release_pointer: 0x{0:X8}" />
+                </KernelService>
+            </KernelServiceGroup>
+            <KernelServiceGroup name="Thread">
+                <KernelService name="pthread_attr_getcontroladdr">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="thread_control_address" format="thread_control_address: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="pthread_attr_getcontrolsize">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="thread_control_size" format="thread_control_size: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="pthread_attr_destroy">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="pthread_attr_getdetachstate">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="detach_state" format="detach_state: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="pthread_attr_getname">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="name" format="name: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="pthread_attr_getpriority">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="priority" format="priority: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="pthread_attr_getstackaddr">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="priority" format="priority: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="pthread_attr_getstacksize">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="stack_address" format="stack_address: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="pthread_attr_gettimeslice">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="thread_time_slice" format="thread_time_slice: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="pthread_attr_init">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="pthread_attr_setdetachstate">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="detach_state" format="detach_state: {0}" />
+                </KernelService>
+                <KernelService name="pthread_attr_setname">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="name" format="name: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="pthread_attr_setpriority">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="priority" format="priority: {0}" />
+                </KernelService>
+                <KernelService name="pthread_attr_setstackaddr">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="stack_address" format="stack_address: 0x{0:X8}" />
+                </KernelService>
+                <KernelService name="pthread_attr_setstacksize">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="stack_size" format="stack_size: {0}" />
+                </KernelService>
+                <KernelService name="pthread_attr_setcontroladdr">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="thread_control_address" format="thread_control_address: 0x{0:X8}" />
+                    <Parameter name="thread_control_size" format="thread_control_size: {0}" />
+                </KernelService>
+                <KernelService name="pthread_attr_settimeslice">
+                    <Parameter name="thread_attributes" format="thread_attributes: 0x{0:X8}" />
+                    <Parameter name="thread_time_slice" format="thread_time_slice: {0}" />
+                </KernelService>
+                <KernelService name="pthread_create" operation="Initialize">
+                    <Parameter name="thread_handle" format="thread_handle: {0}" />
+                    <Parameter name="priority" format="priority: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_detach" />
+                <KernelService name="pthread_cancel" />
+                <KernelService name="pthread_exit" operation="Deinitialize" >
+                    <Parameter name="exit_value" format="exit_value: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_getaffinity_np" >
+                    <Parameter name="cpusetsize" format="cpusetsize: {0}"/>
+                    <Parameter name="cpuset" format="cpuset: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_information_get" >
+                    <Parameter name="thread_handle" format="thread_handle: {0}"/>
+                    <Parameter name="name" format="name: 0x{0:X0}"/>
+                    <Parameter name="state" format="state: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_join" >
+                    <Parameter name="thread_handle" format="thread_handle: {0}"/>
+                    <Parameter name="value_destination" format="value_destination: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_kill" >
+                    <Parameter name="thread_handle" format="thread_handle: {0}"/>
+                    <Parameter name="signal_number" format="signal_number: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_resume" >
+                    <Parameter name="thread_handle" format="thread_handle: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_self" parameters="None" />
+                <KernelService name="px5_pthread_priority_change" >
+                    <Parameter name="thread_handle" format="thread_handle: {0}"/>
+                    <Parameter name="new_priority" format="new_priority: {0}"/>
+                    <Parameter name="old_priority" format="old_priority: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_setaffinity_np" >
+                    <Parameter name="thread_handle" format="thread_handle: {0}"/>
+                    <Parameter name="cpusetsize" format="cpusetsize: {0}"/>
+                    <Parameter name="cpuset" format="cpuset: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_setcancelstate" >
+                    <Parameter name="new_state" format="new_state: {0}"/>
+                    <Parameter name="old_state" format="old_state: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_setcanceltype" >
+                    <Parameter name="new_type" format="new_type: {0}"/>
+                    <Parameter name="old_type" format="old_type: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_sigmask" >
+                    <Parameter name="operation" format="operation: {0}"/>
+                    <Parameter name="signal_set" format="signal_set: 0x{0:X8}"/>
+                    <Parameter name="previous_mask" format="previous_mask: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_stack_check" parameters="ObjectAndNumericParameter" >
+                    <Parameter name="thread_handle" format="thread_handle: {0}"/>
+                    <Parameter name="minimum_available_stack" format="minimum_available_stack: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_suspend" >
+                    <Parameter name="thread_handle" format="thread_handle: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_cancel" >
+                    <Parameter name="thread_handle" format="thread_handle: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_testcancel" parameters="None" />
+                <KernelService name="pthread_equal" >
+                    <Parameter name="first_thread" format="first_thread: {0}"/>
+                    <Parameter name="second_thread" format="second_thread: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_cleanup_pop" >
+                    <Parameter name="execute" format="execute: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_cleanup_push" >
+                    <Parameter name="cleanup_handler" format="cleanup_handler: 0x{0:X8}"/>
+                    <Parameter name="argument" format="argument: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="sched_yield" parameters="None" />
+            </KernelServiceGroup>
+            <KernelServiceGroup name="ConditionVariable">
+                <KernelService name="pthread_cond_broadcast" >
+                    <Parameter name="condition_var_handle" format="condition_var_handle: {0}" />
+                </KernelService>
+                <KernelService name="pthread_cond_destroy" >
+                    <Parameter name="condition_var_handle" format="condition_var_handle: {0}" />
+                </KernelService>
+                <KernelService name="pthread_cond_init" >
+                    <Parameter name="condition_var_handle" format="condition_var_handle: {0}" />
+                    <Parameter name="condition_var_attributes" format="condition_var_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_cond_signal" >
+                    <Parameter name="condition_var_handle" format="condition_var_handle: {0}" />
+                </KernelService>
+                <KernelService name="pthread_cond_timedwait" >
+                    <Parameter name="condition_var_handle" format="condition_var_handle: {0}"/>
+                    <Parameter name="mutex_handle" format="mutex_handle: {0}"/>
+                    <Parameter name="absolute_time" format="absolute_time: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_cond_wait" >
+                    <Parameter name="condition_var_handle" format="condition_var_handle: {0}"/>
+                    <Parameter name="mutex_handle" format="mutex_handle: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_condattr_destroy" >
+                    <Parameter name="condition_var_attributes" format="condition_var_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_condattr_getcontroladdr" >
+                    <Parameter name="condition_var_attributes" format="condition_var_attributes: 0x{0:X8}"/>
+                    <Parameter name="condition_var_control_address" format="condition_var_control_address: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_condattr_getcontrolsize" >
+                    <Parameter name="condition_var_attributes" format="condition_var_attributes: 0x{0:X8}"/>
+                    <Parameter name="condition_var_control_size" format="condition_var_control_size: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_condattr_getname" >
+                    <Parameter name="condition_var_attributes" format="condition_var_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_condattr_getpshared" >
+                    <Parameter name="condition_var_attributes" format="condition_var_attributes: 0x{0:X8}"/>
+                    <Parameter name="process_sharing_designation" format="process_sharing_designation: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_condattr_init" >
+                    <Parameter name="condition_var_attributes" format="condition_var_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_condattr_setcontroladdr" >
+                    <Parameter name="condition_var_attributes" format="condition_var_attributes: 0x{0:X8}"/>
+                    <Parameter name="condition_var_control_address" format="condition_var_control_address: 0x{0:X8}"/>
+                    <Parameter name="condition_var_control_size" format="condition_var_control_size: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_condattr_setname" >
+                    <Parameter name="condition_var_attributes" format="condition_var_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_condattr_setpshared" >
+                    <Parameter name="condition_var_attributes" format="condition_var_attributes: 0x{0:X8}"/>
+                    <Parameter name="process_sharing_designation" format="process_sharing_designation: {0}"/>
+                </KernelService>
+            </KernelServiceGroup>
+            <KernelServiceGroup name="EventFlags">
+                <KernelService name="px5_pthread_event_flags_clear" >
+                    <Parameter name="event_flags_handle" format="event_flags_handle: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_event_flags_create" >
+                    <Parameter name="event_flags_handle" format="event_flags_handle: {0}"/>
+                    <Parameter name="event_flags_attributes" format="event_flags_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_event_flags_destroy" >
+                    <Parameter name="event_flags_handle" format="event_flags_handle: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_event_flags_set" >
+                    <Parameter name="event_flags_handle" format="event_flags_handle: {0}"/>
+                    <Parameter name="events_to_set" format="events_to_set: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_event_flags_timedwait" >
+                    <Parameter name="event_flags_handle" format="event_flags_handle: {0}"/>
+                    <Parameter name="requested_events" format="requested_events: 0x{0:X8}"/>
+                    <Parameter name="all_or_any" format="all_or_any: {0}"/>
+                    <Parameter name="received_events" format="received_events: 0x{0:X8}"/>
+                    <Parameter name="timeout_ticks" format="timeout_ticks: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_event_flags_trywait" >
+                    <Parameter name="event_flags_handle" format="event_flags_handle: {0}"/>
+                    <Parameter name="requested_events" format="requested_events: 0x{0:X8}"/>
+                    <Parameter name="all_or_any" format="all_or_any: {0}"/>
+                    <Parameter name="received_events" format="received_events: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_event_flags_wait" >
+                    <Parameter name="event_flags_handle" format="event_flags_handle: {0}"/>
+                    <Parameter name="requested_events" format="requested_events: 0x{0:X8}"/>
+                    <Parameter name="all_or_any" format="all_or_any: {0}"/>
+                    <Parameter name="received_events" format="received_events: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_event_flagsattr_destroy" >
+                    <Parameter name="event_flags_attributes" format="event_flags_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_event_flagsattr_getcontroladdr" >
+                    <Parameter name="event_flags_attributes" format="event_flags_attributes: 0x{0:X8}"/>
+                    <Parameter name="event_flags_control_address" format="event_flags_control_address: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_event_flagsattr_getcontrolsize" >
+                    <Parameter name="event_flags_attributes" format="event_flags_attributes: 0x{0:X8}"/>
+                    <Parameter name="event_flags_control_size" format="event_flags_control_size: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_event_flagsattr_getname" >
+                    <Parameter name="event_flags_attributes" format="event_flags_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_event_flagsattr_init" >
+                    <Parameter name="event_flags_attributes" format="event_flags_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_event_flagsattr_setcontroladdr" >
+                    <Parameter name="event_flags_attributes" format="event_flags_attributes: 0x{0:X8}"/>
+                    <Parameter name="event_flags_control_address" format="event_flags_control_address: 0x{0:X8}"/>
+                    <Parameter name="event_flags_control_size" format="event_flags_control_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_event_flagsattr_setname" >
+                    <Parameter name="event_flags_attributes" format="event_flags_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+            </KernelServiceGroup>
+            <KernelServiceGroup name="FastQueue">
+                <KernelService name="px5_pthread_fastqueue_create" >
+                    <Parameter name="fastqueue_handle" format="fastqueue_handle: {0}"/>
+                    <Parameter name="fastqueue_attributes" format="fastqueue_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueue_destroy" >
+                    <Parameter name="fastqueue_handle" format="fastqueue_handle: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueue_receive" >
+                    <Parameter name="fastqueue_handle" format="fastqueue_handle: {0}"/>
+                    <Parameter name="message_destination" format="message_destination: 0x{0:X8}"/>
+                    <Parameter name="message_size" format="message_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueue_send" >
+                    <Parameter name="fastqueue_handle" format="fastqueue_handle: {0}"/>
+                    <Parameter name="message_source" format="message_source: 0x{0:X8}"/>
+                    <Parameter name="message_size" format="message_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueue_timedreceive" >
+                    <Parameter name="fastqueue_handle" format="fastqueue_handle: {0}"/>
+                    <Parameter name="message_destination" format="message_destination: 0x{0:X8}"/>
+                    <Parameter name="message_size" format="message_size: {0}"/>
+                    <Parameter name="timeout_ticks" format="timeout_ticks: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueue_timedsend" >
+                    <Parameter name="fastqueue_handle" format="fastqueue_handle: {0}"/>
+                    <Parameter name="message_source" format="message_source: 0x{0:X8}"/>
+                    <Parameter name="message_size" format="message_size: {0}"/>
+                    <Parameter name="timeout_ticks" format="timeout_ticks: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueue_tryreceive" >
+                    <Parameter name="fastqueue_handle" format="fastqueue_handle: {0}"/>
+                    <Parameter name="message_destination" format="message_destination: 0x{0:X8}"/>
+                    <Parameter name="message_size" format="message_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueue_trysend" >
+                    <Parameter name="fastqueue_handle" format="fastqueue_handle: {0}"/>
+                    <Parameter name="message_source" format="message_source: 0x{0:X8}"/>
+                    <Parameter name="message_size" format="message_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueueattr_destroy" >
+                    <Parameter name="fastqueue_handle" format="fastqueue_handle: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueueattr_getcontroladdr" >
+                    <Parameter name="fastqueue_attributes" format="fastqueue_attributes: 0x{0:X8}"/>
+                    <Parameter name="fastqueue_control_address" format="fastqueue_control_address: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueueattr_getcontrolsize" >
+                    <Parameter name="fastqueue_attributes" format="fastqueue_attributes: 0x{0:X8}"/>
+                    <Parameter name="fastqueue_control_size" format="fastqueue_control_size: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueueattr_getname" >
+                    <Parameter name="fastqueue_attributes" format="fastqueue_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueueattr_getqueueaddr" >
+                    <Parameter name="fastqueue_attributes" format="fastqueue_attributes: 0x{0:X8}"/>
+                    <Parameter name="fastqueue_memory_address" format="fastqueue_memory_address: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueueattr_getqueuesize" >
+                    <Parameter name="fastqueue_attributes" format="fastqueue_attributes: 0x{0:X8}"/>
+                    <Parameter name="fastqueue_memory_size" format="fastqueue_memory_size: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueueattr_init" >
+                    <Parameter name="fastqueue_attributes" format="fastqueue_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueueattr_setcontroladdr" >
+                    <Parameter name="fastqueue_attributes" format="fastqueue_attributes: 0x{0:X8}"/>
+                    <Parameter name="fastqueue_control_address" format="fastqueue_control_address: 0x{0:X8}"/>
+                    <Parameter name="fastqueue_control_size" format="fastqueue_control_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueueattr_setname" >
+                    <Parameter name="fastqueue_attributes" format="fastqueue_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_fastqueueattr_setqueueaddr" >
+                    <Parameter name="fastqueue_attributes" format="fastqueue_attributes: 0x{0:X8}"/>
+                    <Parameter name="fastqueue_memory_address" format="fastqueue_memory_address: 0x{0:X8}"/>
+                    <Parameter name="fastqueue_memory_size" format="fastqueue_memory_size: {0}"/>
+                </KernelService>
+            </KernelServiceGroup>
+            <KernelServiceGroup name="MemoryPool">
+                <KernelService name="px5_pthread_memorypool_allocate" >
+                    <Parameter name="memorypool_handle" format="memorypool_handle: {0}"/>
+                    <Parameter name="allocated_memory" format="allocated_memory: 0x{0:X8}"/>
+                    <Parameter name="request_size" format="request_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_memorypool_create" >
+                    <Parameter name="memorypool_handle" format="memorypool_handle: {0}"/>
+                    <Parameter name="memorypool_attributes" format="memorypool_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_memorypool_destroy" >
+                    <Parameter name="memorypool_handle" format="memorypool_handle: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_memorypool_free" >
+                    <Parameter name="memory_pointer" format="memory_pointer: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_memorypool_timedallocate" >
+                    <Parameter name="memorypool_handle" format="memorypool_handle: {0}"/>
+                    <Parameter name="allocated_memory" format="allocated_memory: 0x{0:X8}"/>
+                    <Parameter name="request_size" format="request_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_memorypool_tryallocate" >
+                    <Parameter name="memorypool_handle" format="memorypool_handle: {0}"/>
+                    <Parameter name="allocated_memory" format="allocated_memory: 0x{0:X8}"/>
+                    <Parameter name="request_size" format="request_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_memorypoolattr_destroy" >
+                    <Parameter name="memorypool_attributes" format="memorypool_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_memorypoolattr_getcontroladdr" >
+                    <Parameter name="memorypool_attributes" format="memorypool_attributes: 0x{0:X8}"/>
+                    <Parameter name="memorypool_control_address" format="memorypool_control_address: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_memorypoolattr_getcontrolsize" >
+                    <Parameter name="memorypool_attributes" format="memorypool_attributes: 0x{0:X8}"/>
+                    <Parameter name="memorypool_control_size" format="memorypool_control_size: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_memorypoolattr_getname" >
+                    <Parameter name="memorypool_attributes" format="memorypool_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_memorypoolattr_init" >
+                    <Parameter name="memorypool_attributes" format="memorypool_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_memorypoolattr_setcontroladdr" >
+                    <Parameter name="memorypool_attributes" format="memorypool_attributes: 0x{0:X8}"/>
+                    <Parameter name="memorypool_control_address" format="memorypool_control_address: 0x{0:X8}"/>
+                    <Parameter name="memorypool_control_size" format="memorypool_control_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_memorypoolattr_setname" >
+                    <Parameter name="memorypool_attributes" format="memorypool_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+            </KernelServiceGroup>
+            <KernelServiceGroup name="Mutex">
+                <KernelService name="pthread_mutex_destroy" >
+                    <Parameter name="mutex_handle" format="mutex_handle: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_mutex_init" >
+                    <Parameter name="mutex_handle" format="mutex_handle: {0}"/>
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_mutex_lock" >
+                    <Parameter name="mutex_handle" format="mutex_handle: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_mutex_trylock" >
+                    <Parameter name="mutex_handle" format="mutex_handle: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_mutex_unlock" >
+                    <Parameter name="mutex_handle" format="mutex_handle: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_mutexattr_destroy" >
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_mutexattr_getcontroladdr" >
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                    <Parameter name="mutex_control_address" format="mutex_control_address: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_mutexattr_getcontrolsize" >
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                    <Parameter name="mutex_control_size" format="mutex_control_size: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_mutexattr_getname" >
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_mutexattr_getprotocol" >
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                    <Parameter name="protocol" format="protocol: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_mutexattr_getpshared" >
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                    <Parameter name="process_sharing_designation" format="process_sharing_designation: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_mutexattr_gettype" >
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                    <Parameter name="type" format="type: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_mutexattr_init" >
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_mutexattr_setcontroladdr" >
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                    <Parameter name="mutex_control_address" format="mutex_control_address: 0x{0:X8}"/>
+                    <Parameter name="mutex_control_size" format="mutex_control_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_mutexattr_setname" >
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_mutexattr_setprotocol" >
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                    <Parameter name="protocol" format="protocol: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_mutexattr_setpshared" >
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                    <Parameter name="process_sharing_designation" format="process_sharing_designation: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_mutexattr_settype" >
+                    <Parameter name="mutex_attributes" format="mutex_attributes: 0x{0:X8}"/>
+                    <Parameter name="type" format="type: {0}"/>
+                </KernelService>
+            </KernelServiceGroup>
+            <KernelServiceGroup name="PartitionPool">
+                <KernelService name="pthread_partitionpool_allocate" >
+                    <Parameter name="partitionpool_handle" format="partitionpool_handle: {0}"/>
+                    <Parameter name="allocated_memory" format="allocated_memory: 0x{0:X8}"/>
+                    <Parameter name="request_size" format="request_size: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_partitionpool_create" >
+                    <Parameter name="partitionpool_handle" format="partitionpool_handle: {0}"/>
+                    <Parameter name="partitionpool_attributes" format="partitionpool_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_partitionpool_destroy" >
+                    <Parameter name="partitionpool_handle" format="partitionpool_handle: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_partitionpool_free" >
+                    <Parameter name="memory_pointer" format="memory_pointer: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_partitionpool_timedallocate" >
+                    <Parameter name="partitionpool_handle" format="partitionpool_handle: {0}"/>
+                    <Parameter name="allocated_memory" format="allocated_memory: 0x{0:X8}"/>
+                    <Parameter name="request_size" format="request_size: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_partitionpool_tryallocate" >
+                    <Parameter name="partitionpool_handle" format="partitionpool_handle: {0}"/>
+                    <Parameter name="allocated_memory" format="allocated_memory: 0x{0:X8}"/>
+                    <Parameter name="request_size" format="request_size: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_partitionpoolattr_destroy" >
+                    <Parameter name="partitionpool_attributes" format="partitionpool_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_partitionpoolattr_getcontroladdr" >
+                    <Parameter name="partitionpool_attributes" format="partitionpool_attributes: 0x{0:X8}"/>
+                    <Parameter name="partitionpool_control_address" format="partitionpool_control_address: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_partitionpoolattr_getcontrolsize" >
+                    <Parameter name="partitionpool_attributes" format="partitionpool_attributes: 0x{0:X8}"/>
+                    <Parameter name="partitionpool_control_size" format="partitionpool_control_size: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_partitionpoolattr_getname" >
+                    <Parameter name="partitionpool_attributes" format="partitionpool_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_partitionpoolattr_init" >
+                    <Parameter name="partitionpool_attributes" format="partitionpool_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="pthread_partitionpoolattr_setcontroladdr" >
+                    <Parameter name="partitionpool_attributes" format="partitionpool_attributes: 0x{0:X8}"/>
+                    <Parameter name="partitionpool_control_address" format="partitionpool_control_address: 0x{0:X8}"/>
+                    <Parameter name="partitionpool_control_size" format="partitionpool_control_size: {0}"/>
+                </KernelService>
+                <KernelService name="pthread_partitionpoolattr_setname" >
+                    <Parameter name="partitionpool_attributes" format="partitionpool_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+            </KernelServiceGroup>
+            <KernelServiceGroup name="TickTimer">
+                <KernelService name="px5_pthread_ticktimer_create" >
+                    <Parameter name="ticktimer_handle" format="ticktimer_handle: {0}"/>
+                    <Parameter name="attributes" format="attributes: 0x{0:X8}"/>
+                    <Parameter name="expiration_routine" format="expiration_routine: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_ticktimer_destroy" >
+                    <Parameter name="ticktimer_handle" format="ticktimer_handle: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_ticktimer_start" >
+                    <Parameter name="ticktimer_handle" format="ticktimer_handle: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_ticktimer_stop" >
+                    <Parameter name="ticktimer_handle" format="ticktimer_handle: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_ticktimer_update" >
+                    <Parameter name="ticktimer_handle" format="ticktimer_handle: {0}"/>
+                    <Parameter name="initial_ticks" format="initial_ticks: {0}"/>
+                    <Parameter name="reload_ticks" format="reload_ticks: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_ticktimerattr_destroy" >
+                    <Parameter name="ticktimer_attributes" format="ticktimer_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_ticktimerattr_getcontroladdr" >
+                    <Parameter name="ticktimer_attributes" format="ticktimer_attributes: 0x{0:X8}"/>
+                    <Parameter name="ticktimer_control_address" format="ticktimer_control_address: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_ticktimerattr_getcontrolsize" >
+                    <Parameter name="ticktimer_attributes" format="ticktimer_attributes: 0x{0:X8}"/>
+                    <Parameter name="ticktimer_control_size" format="ticktimer_control_size: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_ticktimerattr_getname" >
+                    <Parameter name="ticktimer_attributes" format="ticktimer_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_ticktimerattr_init" >
+                    <Parameter name="ticktimer_attributes" format="ticktimer_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_ticktimerattr_setcontroladdr" >
+                    <Parameter name="ticktimer_attributes" format="ticktimer_attributes: 0x{0:X8}"/>
+                    <Parameter name="ticktimer_control_address" format="ticktimer_control_address: 0x{0:X8}"/>
+                    <Parameter name="ticktimer_control_size" format="ticktimer_control_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_pthread_ticktimerattr_setname" >
+                    <Parameter name="ticktimer_attributes" format="ticktimer_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+            </KernelServiceGroup>
+            <KernelServiceGroup name="Semaphore">
+                <KernelService name="sem_destroy" >
+                    <Parameter name="semaphore_handle" format="semaphore_handle: {0}"/>
+                </KernelService>
+                <KernelService name="px5_sem_extend_init" >
+                    <Parameter name="semaphore_handle" format="semaphore_handle: {0}"/>
+                    <Parameter name="pshared" format="pshared: {0}"/>
+                    <Parameter name="value" format="value: {0}"/>
+                </KernelService>
+                <KernelService name="sem_init" >
+                    <Parameter name="semaphore_handle" format="semaphore_handle: {0}"/>
+                </KernelService>
+                <KernelService name="sem_post" >
+                    <Parameter name="semaphore_handle" format="semaphore_handle: {0}"/>
+                </KernelService>
+                <KernelService name="px5_sem_tickwait" >
+                    <Parameter name="semaphore_handle" format="semaphore_handle: {0}"/>
+                    <Parameter name="timeout_ticks" format="timeout_ticks: {0}"/>
+                </KernelService>
+                <KernelService name="sem_timedwait" >
+                    <Parameter name="semaphore_handle" format="semaphore_handle: {0}"/>
+                    <Parameter name="absolute_time" format="absolute_time: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="sem_trywait" >
+                    <Parameter name="semaphore_handle" format="semaphore_handle: {0}"/>
+                </KernelService>
+                <KernelService name="sem_wait" >
+                    <Parameter name="semaphore_handle" format="semaphore_handle: {0}"/>
+                </KernelService>
+                <KernelService name="px5_semattr_destroy" >
+                    <Parameter name="semaphore_attributes" format="semaphore_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_semattr_getcontroladdr" >
+                    <Parameter name="semaphore_attributes" format="semaphore_attributes: 0x{0:X8}"/>
+                    <Parameter name="semaphore_control_address" format="semaphore_control_address: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_semattr_getcontrolsize" >
+                    <Parameter name="semaphore_attributes" format="semaphore_attributes: 0x{0:X8}"/>
+                    <Parameter name="semaphore_control_size" format="semaphore_control_size: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_semattr_getname" >
+                    <Parameter name="semaphore_attributes" format="semaphore_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_semattr_init" >
+                    <Parameter name="semaphore_attributes" format="semaphore_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_semattr_setcontroladdr" >
+                    <Parameter name="semaphore_attributes" format="semaphore_attributes: 0x{0:X8}"/>
+                    <Parameter name="semaphore_control_address" format="semaphore_control_address: 0x{0:X8}"/>
+                    <Parameter name="semaphore_control_size" format="semaphore_control_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_semattr_setname" >
+                    <Parameter name="semaphore_attributes" format="semaphore_attributes: 0x{0:X8}"/>
+                    <Parameter name="name" format="name: 0x{0:X8}"/>
+                </KernelService>
+            </KernelServiceGroup>
+            <KernelServiceGroup name="Signal">
+                <KernelService name="sigaction" >
+                    <Parameter name="signal_number" format="signal_number: {0}"/>
+                    <Parameter name="new_handler" format="new_handler: 0x{0:X8}"/>
+                    <Parameter name="previous_handler" format="previous_handler: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="sigaddset" >
+                    <Parameter name="signal_set" format="signal_set: 0x{0:X8}"/>
+                    <Parameter name="signal_number" format="signal_number: {0}"/>
+                </KernelService>
+                <KernelService name="sigdelset" >
+                    <Parameter name="signal_set" format="signal_set: 0x{0:X8}"/>
+                    <Parameter name="signal_number" format="signal_number: {0}"/>
+                </KernelService>
+                <KernelService name="sigemptyset" >
+                    <Parameter name="signal_set" format="signal_set: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="sigfillset" >
+                    <Parameter name="signal_set" format="signal_set: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="sigismember" >
+                    <Parameter name="signal_set" format="signal_set: 0x{0:X8}"/>
+                    <Parameter name="signal_number" format="signal_number: {0}"/>
+                </KernelService>
+                <KernelService name="sigpending" >
+                    <Parameter name="pending_signals" format="pending_signals: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="sigtimedwait" >
+                    <Parameter name="signals" format="signals: 0x{0:X8}"/>
+                    <Parameter name="signal_info" format="signal_info: 0x{0:X8}"/>
+                    <Parameter name="timeout" format="timeout: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="sigwait" >
+                    <Parameter name="signals" format="signals: 0x{0:X8}"/>
+                    <Parameter name="return_signal" format="return_signal: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="sigwaitinfo" >
+                    <Parameter name="signals" format="signals: 0x{0:X8}"/>
+                    <Parameter name="signal_info" format="signal_info: 0x{0:X8}"/>
+                </KernelService>
+            </KernelServiceGroup>
+            <KernelServiceGroup name="MessageQueue">
+                <KernelService name="mq_close" >
+                    <Parameter name="message_queue" format="message_queue: {0}"/>
+                </KernelService>
+                <KernelService name="px5_mq_extend_open" >
+                    <Parameter name="message_queue" format="message_queue: {0}"/>
+                    <Parameter name="operation" format="operation: {0}"/>
+                </KernelService>
+                <KernelService name="px5_mq_extendattr_destroy" >
+                    <Parameter name="queue_attributes" format="queue_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_mq_extendattr_getcontroladdr" >
+                    <Parameter name="queue_attributes" format="queue_attributes: 0x{0:X8}"/>
+                    <Parameter name="queue_control_address" format="queue_control_address: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_mq_extendattr_getcontrolsize" >
+                    <Parameter name="queue_attributes" format="queue_attributes: 0x{0:X8}"/>
+                    <Parameter name="queue_control_size" format="queue_control_size: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_mq_extendattr_getqueueaddr" >
+                    <Parameter name="queue_attributes" format="queue_attributes: 0x{0:X8}"/>
+                    <Parameter name="queue_memory_address" format="queue_memory_address: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_mq_extendattr_getqueuesize" >
+                    <Parameter name="queue_attributes" format="queue_attributes: 0x{0:X8}"/>
+                    <Parameter name="queue_memory_size" format="queue_memory_size: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_mq_extendattr_init" >
+                    <Parameter name="queue_attributes" format="queue_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="px5_mq_extendattr_setcontroladdr" >
+                    <Parameter name="queue_attributes" format="queue_attributes: 0x{0:X8}"/>
+                    <Parameter name="queue_control_address" format="queue_control_address: 0x{0:X8}"/>
+                    <Parameter name="queue_control_size" format="queue_control_size: {0}"/>
+                </KernelService>
+                <KernelService name="px5_mq_extendattr_setqueueaddr" >
+                    <Parameter name="queue_attributes" format="queue_attributes: 0x{0:X8}"/>
+                    <Parameter name="queue_memory_address" format="queue_memory_address: {0}"/>
+                    <Parameter name="queue_memory_size" format="queue_memory_size: {0}"/>
+                </KernelService>
+                <KernelService name="mq_getattr" >
+                    <Parameter name="message_queue" format="message_queue: {0}"/>
+                    <Parameter name="queue_attributes" format="queue_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="mq_open" >
+                    <Parameter name="message_queue_handle" format="message_queue_handle: {0}"/>
+                    <Parameter name="operation" format="operation: {0}"/>
+                </KernelService>
+                <KernelService name="mq_receive" >
+                    <Parameter name="message_queue" format="message_queue: {0}"/>
+                    <Parameter name="message" format="message: 0x{0:X8}"/>
+                    <Parameter name="message_size" format="message_size: {0}"/>
+                </KernelService>
+                <KernelService name="mq_send" >
+                    <Parameter name="message_queue" format="message_queue: {0}"/>
+                    <Parameter name="message" format="message: 0x{0:X8}"/>
+                    <Parameter name="message_size" format="message_szie: {0}"/>
+                </KernelService>
+                <KernelService name="mq_setattr" >
+                    <Parameter name="message_queue" format="message_queue: {0}"/>
+                    <Parameter name="new_attributes" format="new_attributes: 0x{0:X8}"/>
+                    <Parameter name="previous_attributes" format="previous_attributes: 0x{0:X8}"/>
+                </KernelService>
+                <KernelService name="mq_timedreceive" >
+                    <Parameter name="message_queue" format="message_queue: {0}"/>
+                    <Parameter name="message" format="message: 0x{0:X8}"/>
+                    <Parameter name="message_size" format="message_size: {0}"/>
+                </KernelService>
+                <KernelService name="mq_timedsend" >
+                    <Parameter name="message_queue" format="message_queue: {0}"/>
+                    <Parameter name="message" format="message: 0x{0:X8}"/>
+                    <Parameter name="message_size" format="message_size: {0}"/>
+                </KernelService>
+            </KernelServiceGroup>
+        </KernelServiceGroups>
+        <ObjectClasses>
+            <ObjectClass name="SystemGroup" type="ActorGroup" options="Hidden" />
+            <ObjectClass name="Thread" type="Actor"/>
+            <ObjectClass name="Other" type="Other"/>
+            <ObjectClass name="ISR" type="Actor"/>
+        </ObjectClasses>
+        <TaskPriorityDirection>HigherNumberIsMoreImportant</TaskPriorityDirection>
+    </TargetPlatform>
+</PlatformExtension> 
