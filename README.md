@@ -1,5 +1,1 @@
-Trace Recorder source code for use with Percepio's Tracealyzer.
-
-Read more at https://percepio.com/tracealyzer/ and https://percepio.com/gettingstarted.
-
-Repository at https://github.com/percepio/TraceRecorderSource
+This is a fork of the TraceRecorder library ported to the PX5 RTOS. A user guide for integrating your PX5 RTOS project with TraceRecorder can be found in the "documentation" folder.
