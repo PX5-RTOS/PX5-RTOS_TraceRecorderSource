@@ -138,7 +138,7 @@ int px5_trace_context_switch_pending_check();
 
 
 #define PX5_SYSTEM_TRACE_THREAD_ENTER_EXTENSION(a, b, c, d) \
-    xTraceTaskSwitch(b, b -> priority);
+    xTraceTaskSwitch((void *)b, b -> priority);
 
 
 #define PX5_SYSTEM_TRACE_THREAD_EXIT_EXTENSION(a, b, c, d) \
