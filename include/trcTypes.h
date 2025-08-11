@@ -1,5 +1,5 @@
 /*
-* Percepio Trace Recorder for Tracealyzer v4.8.1
+* Percepio Trace Recorder for Tracealyzer v4.10.3
 * Copyright 2023 Percepio AB
 * www.percepio.com
 *
@@ -70,6 +70,10 @@ typedef TraceHandleBaseType_t TraceCounterHandle_t;
 typedef TraceHandleBaseType_t TraceRunnableHandle_t;
 
 typedef TraceHandleBaseType_t TraceRunnableStaticSetHandle_t;
+
+typedef TraceHandleBaseType_t TraceProcessHandle_t;
+
+typedef TraceHandleBaseType_t TraceThreadHandle_t;
 
 typedef void (*TraceCounterCallback_t)(TraceCounterHandle_t xCounterHandle);
 

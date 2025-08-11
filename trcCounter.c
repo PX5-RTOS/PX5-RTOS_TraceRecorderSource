@@ -1,5 +1,5 @@
 /*
-* Trace Recorder for Tracealyzer v4.8.1
+* Trace Recorder for Tracealyzer v4.10.3
 * Copyright 2023 Percepio AB
 * www.percepio.com
 *
@@ -10,9 +10,7 @@
 
 #include <trcRecorder.h>
 
-#if (TRC_USE_TRACEALYZER_RECORDER == 1)
-
-#if (TRC_CFG_RECORDER_MODE == TRC_RECORDER_MODE_STREAMING)
+#if (TRC_USE_TRACEALYZER_RECORDER == 1) && (TRC_CFG_RECORDER_MODE == TRC_RECORDER_MODE_STREAMING)
 
 static TraceCounterData_t *pxCounterData TRC_CFG_RECORDER_DATA_ATTRIBUTE;
 
@@ -24,7 +22,7 @@ traceResult xTraceCounterInitialize(TraceCounterData_t *pxBuffer)
 	
 	pxCounterData->xCallbackFunction = 0;
 	
-	xTraceSetComponentInitialized(TRC_RECORDER_COMPONENT_COUNTER);
+	(void)xTraceSetComponentInitialized(TRC_RECORDER_COMPONENT_COUNTER);
 	
 	return TRC_SUCCESS;
 }
@@ -97,6 +95,4 @@ traceResult xTraceCounterSet(TraceCounterHandle_t xCounterHandle, TraceBaseType_
 	return TRC_SUCCESS;
 }
 
-#endif /* (TRC_CFG_RECORDER_MODE == TRC_RECORDER_MODE_STREAMING) */
-
-#endif /* (TRC_USE_TRACEALYZER_RECORDER == 1) */
+#endif

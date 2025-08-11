@@ -1,5 +1,5 @@
 /*
- * Trace Recorder for Tracealyzer v4.8.1
+ * Trace Recorder for Tracealyzer v4.10.3
  * Copyright 2023 Percepio AB
  * www.percepio.com
  *
@@ -10,9 +10,7 @@
 
 #include <trcRecorder.h>
 
-#if (TRC_CFG_RECORDER_MODE == TRC_RECORDER_MODE_STREAMING)
-
-#if (TRC_USE_TRACEALYZER_RECORDER == 1)
+#if (TRC_USE_TRACEALYZER_RECORDER == 1) && (TRC_CFG_RECORDER_MODE == TRC_RECORDER_MODE_STREAMING)
 
 #ifndef TRC_KERNEL_PORT_HEAP_INIT
 #define TRC_KERNEL_PORT_HEAP_INIT(__size) 
@@ -125,6 +123,9 @@ static void prvSetRecorderEnabled(void);
 
 /* Internal function for stopping the recorder */
 static void prvSetRecorderDisabled(void);
+
+/* Internal function for verifying size */
+static traceResult prvVerifySizeAlignment(uint32_t ulSize);
 
 static TraceUnsignedBaseType_t prvIs64bit(void);
 
@@ -265,15 +266,9 @@ traceResult xTraceInitialize(void)
 
 	pxTraceRecorderData->reserved = 0xFFFFFFFFUL;
 
-	xTraceSetComponentInitialized(TRC_RECORDER_COMPONENT_CORE);
+	(void)xTraceSetComponentInitialized(TRC_RECORDER_COMPONENT_CORE);
 
 	return TRC_SUCCESS;
-}
-
-/* Do this in function to avoid unreachable code warnings */
-traceResult prvVerifySizeAlignment(uint32_t ulSize)
-{
-	return (ulSize % sizeof(TraceUnsignedBaseType_t)) == 0 ? TRC_SUCCESS : TRC_FAIL;
 }
 
 traceResult xTraceHeaderInitialize(TraceHeaderBuffer_t *pxBuffer)
@@ -474,7 +469,7 @@ traceResult xTraceTzCtrl(void)
 
 		if (xTraceIsRecorderEnabled())
 		{
-			xTraceInternalEventBufferTransfer();
+			(void)xTraceInternalEventBufferTransfer();
 		}
 
 		/* If there was data sent or received (bytes != 0), loop around and repeat, if there is more data to send or receive.
@@ -578,80 +573,60 @@ static void prvSetRecorderDisabled(void)
 /* Stores the header information on Start */
 static void prvTraceStoreHeader(void)
 {
-	TraceEventHandle_t xEventHandle;
-
-	if (xTraceEventBeginRawOfflineBlocking(sizeof(TraceHeader_t), &xEventHandle) == TRC_SUCCESS)
-	{
-		xTraceEventAddData(xEventHandle, (TraceUnsignedBaseType_t*)pxHeader, sizeof(TraceHeader_t) / sizeof(TraceUnsignedBaseType_t));
-		xTraceEventEndOfflineBlocking(xEventHandle);
-	}
+	xTraceEventCreateRawBlocking((TraceUnsignedBaseType_t*)pxHeader, sizeof(TraceHeader_t));
 }
 
 /* Store the Timestamp */
 static void prvTraceStoreTimestampInfo(void)
 {
-	TraceEventHandle_t xEventHandle;
-
-	if (xTraceEventBeginRawOfflineBlocking(sizeof(TraceTimestampData_t), &xEventHandle) == TRC_SUCCESS)
-	{
-		xTraceEventAddData(xEventHandle, (TraceUnsignedBaseType_t*)&pxTraceRecorderData->xTimestampBuffer, sizeof(TraceTimestampData_t) / sizeof(TraceUnsignedBaseType_t));
-		xTraceEventEndOfflineBlocking(xEventHandle);
-	}
+	xTraceEventCreateRawBlocking((TraceUnsignedBaseType_t*)&pxTraceRecorderData->xTimestampBuffer,sizeof(TraceTimestampData_t));
 }
 
 /* Stores the entry table on Start */
 static void prvTraceStoreEntryTable(void)
 {
 	uint32_t i = 0;
-	TraceEventHandle_t xEventHandle;
 	TraceEntryHandle_t xEntryHandle;
 	uint32_t uiEntryCount;
+	TraceUnsignedBaseType_t xHeaderData[3];
 	void *pvEntryAddress;
 
 	(void)xTraceEntryGetCount(&uiEntryCount);
-	
-	if (xTraceEventBeginRawOfflineBlocking(sizeof(TraceUnsignedBaseType_t) + sizeof(TraceUnsignedBaseType_t) + sizeof(TraceUnsignedBaseType_t), &xEventHandle) == TRC_SUCCESS)
-	{
-		(void)xTraceEventAddUnsignedBaseType(xEventHandle, (TraceUnsignedBaseType_t)uiEntryCount);
-		(void)xTraceEventAddUnsignedBaseType(xEventHandle, TRC_ENTRY_TABLE_SLOT_SYMBOL_SIZE);
-		(void)xTraceEventAddUnsignedBaseType(xEventHandle, TRC_ENTRY_TABLE_STATE_COUNT);
-		(void)xTraceEventEndOfflineBlocking(xEventHandle);
-	}
-	
+
+	xHeaderData[0] = (TraceUnsignedBaseType_t)uiEntryCount;
+	xHeaderData[1] = TRC_ENTRY_TABLE_SLOT_SYMBOL_SIZE;
+	xHeaderData[2] = TRC_ENTRY_TABLE_STATE_COUNT;
+
+	xTraceEventCreateRawBlocking(xHeaderData, sizeof(xHeaderData));
+
 	for (i = 0; i < (TRC_ENTRY_TABLE_SLOTS); i++)
 	{
 		(void)xTraceEntryGetAtIndex(i, &xEntryHandle);
 		(void)xTraceEntryGetAddress(xEntryHandle, &pvEntryAddress);
+
 		/* We only send used entry slots */
 		if (pvEntryAddress != 0)
 		{
-			/* Send entry */
-			if (xTraceEventBeginRawOfflineBlocking(sizeof(TraceEntry_t), &xEventHandle) == TRC_SUCCESS)
-			{
-				(void)xTraceEventAddData(xEventHandle, (TraceUnsignedBaseType_t*)xEntryHandle, sizeof(TraceEntry_t) / sizeof(TraceUnsignedBaseType_t));
-				(void)xTraceEventEndOfflineBlocking(xEventHandle);
-			}
+			xTraceEventCreateRawBlocking((TraceUnsignedBaseType_t *) xEntryHandle, sizeof(TraceEntry_t));
 		}
 	}
+
 }
 #endif /* (TRC_EXTERNAL_BUFFERS == 0) */
 
 static void prvTraceStoreStartEvent(void)
 {
-	TraceEventHandle_t xEventHandle = 0;
 	void* pvCurrentTask = (void*)0;
 	uint32_t i;
 
-	if (xTraceEventBeginOffline(PSF_EVENT_TRACE_START, sizeof(TraceUnsignedBaseType_t) * (TRC_CFG_CORE_COUNT), &xEventHandle) == TRC_SUCCESS)
+	TraceUnsignedBaseType_t xTraceTasks[TRC_CFG_CORE_COUNT];
+	for (i = 0; i < (TRC_CFG_CORE_COUNT); i++)
 	{
-		for (i = 0; i < (TRC_CFG_CORE_COUNT); i++)
-		{
-
-			(void)xTraceTaskGetCurrentOnCore(i, &pvCurrentTask);
-			(void)xTraceEventAddUnsignedBaseType(xEventHandle, (TraceUnsignedBaseType_t)pvCurrentTask);  /*cstat !MISRAC2004-11.3 !MISRAC2012-Rule-11.4 !MISRAC2012-Rule-11.6 Suppress conversion from pointer to integer check*/
-		}
-		(void)xTraceEventEndOffline(xEventHandle);
+		(void)xTraceTaskGetCurrentOnCore(i, &pvCurrentTask);
+		xTraceTasks[i] = (TraceUnsignedBaseType_t)pvCurrentTask;
 	}
+
+	(void)xTraceEventCreateDataOffline0(PSF_EVENT_TRACE_START, xTraceTasks, sizeof(xTraceTasks));
 }
 
 /* Checks if the provided command is a valid command */
@@ -702,6 +677,10 @@ static void prvProcessCommand(const TraceCommand_t* const cmd)
 	}
 }
 
-#endif
+/* Do this in function to avoid unreachable code warnings */
+static traceResult prvVerifySizeAlignment(uint32_t ulSize)
+{
+	return (ulSize % sizeof(TraceUnsignedBaseType_t)) == 0 ? TRC_SUCCESS : TRC_FAIL;
+}
 
 #endif

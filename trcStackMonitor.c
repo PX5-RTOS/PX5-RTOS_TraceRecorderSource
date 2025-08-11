@@ -1,5 +1,5 @@
 /*
-* Percepio Trace Recorder for Tracealyzer v4.8.1
+* Percepio Trace Recorder for Tracealyzer v4.10.3
 * Copyright 2023 Percepio AB
 * www.percepio.com
 *
@@ -10,11 +10,7 @@
 
 #include <trcRecorder.h>
 
-#if (TRC_USE_TRACEALYZER_RECORDER == 1)
-
-#if (TRC_CFG_RECORDER_MODE == TRC_RECORDER_MODE_STREAMING)
-
-#if (((TRC_CFG_ENABLE_STACK_MONITOR) == 1) && ((TRC_CFG_SCHEDULING_ONLY) == 0))
+#if (TRC_USE_TRACEALYZER_RECORDER == 1) && (TRC_CFG_RECORDER_MODE == TRC_RECORDER_MODE_STREAMING) && ((TRC_CFG_ENABLE_STACK_MONITOR) == 1) && ((TRC_CFG_SCHEDULING_ONLY) == 0)
 
 #ifndef TRC_CFG_ALLOW_TASK_DELETE
 #define TRC_CFG_ALLOW_TASK_DELETE 1
@@ -38,7 +34,7 @@ traceResult xTraceStackMonitorInitialize(TraceStackMonitorData_t *pxBuffer)
 		pxStackMonitor->xEntries[i].pvTask = 0;
 	}
 	
-	xTraceSetComponentInitialized(TRC_RECORDER_COMPONENT_STACK_MONITOR);
+	(void)xTraceSetComponentInitialized(TRC_RECORDER_COMPONENT_STACK_MONITOR);
 
 	return TRC_SUCCESS;
 }
@@ -204,8 +200,4 @@ traceResult xTraceStackMonitorReport(void)
 
 	return TRC_SUCCESS;
 }
-#endif /* (((TRC_CFG_ENABLE_STACK_MONITOR) == 1) && ((TRC_CFG_SCHEDULING_ONLY) == 0)) */
-
-#endif /* (TRC_CFG_RECORDER_MODE == TRC_RECORDER_MODE_STREAMING) */
-
-#endif /* (TRC_USE_TRACEALYZER_RECORDER == 1) */
+#endif

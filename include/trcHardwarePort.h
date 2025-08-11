@@ -1,5 +1,5 @@
 /*
- * Trace Recorder for Tracealyzer v4.8.1
+ * Trace Recorder for Tracealyzer v4.10.3
  * Copyright 2023 Percepio AB
  * www.percepio.com
  *
@@ -16,7 +16,7 @@
 /*
  * @brief
  * This macro must be used as name for the variable in the critical section allocation.
- * Example: #define TRACE_ALLOC_CRITICAL_SECION uint32_t TRACE_ALLOC_CRITICAL_SECTION_NAME;
+ * Example: #define TRACE_ALLOC_CRITICAL_SECTION uint32_t TRACE_ALLOC_CRITICAL_SECTION_NAME;
  */
 #define TRACE_ALLOC_CRITICAL_SECTION_NAME xTraceCriticalSectionStatus
 
@@ -144,6 +144,9 @@ uint32_t uiTraceTimerGetValue(void);
 	/* Set the meaning of IRQ priorities in ISR tracing - see above */
 	#define TRC_IRQ_PRIORITY_ORDER NOT_SET
 
+/* This hardware port is deprecated and should not be used due to the low timer accuracy. */
+#error TRC_HARDWARE_PORT_HWIndependent is deprecated
+
 #elif ((TRC_CFG_HARDWARE_PORT == TRC_HARDWARE_PORT_ARM_Cortex_M) || (TRC_CFG_HARDWARE_PORT == TRC_HARDWARE_PORT_ARM_Cortex_M_NRF_SD))
 	
 	#ifndef __CORTEX_M
@@ -209,7 +212,7 @@ uint32_t uiTraceTimerGetValue(void);
 	
 	#else
 		/* Uses the lower bits of the 64-bit free running timer in the RP2040. SysTick can not be used since it is different for both cores. */
-		#ifdef _CMSIS_RP2040_H_
+		#if defined(_CMSIS_RP2040_H_) || defined(RP2040_H)
 			#define TRC_HWTC_TYPE TRC_FREE_RUNNING_32BIT_INCR
 			#define TRC_HWTC_COUNT (*((volatile uint32_t*)0x4005400c))
 			#define TRC_HWTC_PERIOD 0
@@ -369,14 +372,14 @@ uint32_t uiTraceTimerGetValue(void);
 
 #elif (TRC_CFG_HARDWARE_PORT == TRC_HARDWARE_PORT_XILINX_ZyncUltraScaleR5)
 
-	extern TraceUnsignedBaseType_t cortex_a9_r5_enter_critical(void);
-	extern void cortex_a9_r5_exit_critical(TraceUnsignedBaseType_t irq_already_masked_at_enter);
+	extern uint32_t cortex_a9_r5_enter_critical(void);
+	extern void cortex_a9_r5_exit_critical(uint32_t irq_already_masked_at_enter);
 
 	#define TRACE_ALLOC_CRITICAL_SECTION() TraceUnsignedBaseType_t TRACE_ALLOC_CRITICAL_SECTION_NAME;
 
-	#define TRACE_ENTER_CRITICAL_SECTION() { TRACE_ALLOC_CRITICAL_SECTION_NAME = cortex_a9_r5_enter_critical(); }
+	#define TRACE_ENTER_CRITICAL_SECTION() { TRACE_ALLOC_CRITICAL_SECTION_NAME = (TraceUnsignedBaseType_t)cortex_a9_r5_enter_critical(); }
 
-	#define TRACE_EXIT_CRITICAL_SECTION() { cortex_a9_r5_exit_critical(TRACE_ALLOC_CRITICAL_SECTION_NAME); }
+	#define TRACE_EXIT_CRITICAL_SECTION() { cortex_a9_r5_exit_critical((uint32_t)TRACE_ALLOC_CRITICAL_SECTION_NAME); }
 
 	#include <xttcps_hw.h>
 
@@ -458,13 +461,14 @@ uint32_t uiTraceTimerGetValue(void);
 	
 	**************************************************************************/
 
-	extern TraceUnsignedBaseType_t cortex_a9_r5_enter_critical(void);
-	extern void cortex_a9_r5_exit_critical(TraceUnsignedBaseType_t irq_already_masked_at_enter);
+
+	extern uint32_t cortex_a9_r5_enter_critical(void);
+	extern void cortex_a9_r5_exit_critical(uint32_t irq_already_masked_at_enter);
 
 	#define TRACE_ALLOC_CRITICAL_SECTION() TraceUnsignedBaseType_t TRACE_ALLOC_CRITICAL_SECTION_NAME;
-	#define TRACE_ENTER_CRITICAL_SECTION() { TRACE_ALLOC_CRITICAL_SECTION_NAME = cortex_a9_r5_enter_critical(); }
-	#define TRACE_EXIT_CRITICAL_SECTION() { cortex_a9_r5_exit_critical(TRACE_ALLOC_CRITICAL_SECTION_NAME); }
-	
+	#define TRACE_ENTER_CRITICAL_SECTION() { TRACE_ALLOC_CRITICAL_SECTION_NAME = (TraceUnsignedBaseType_t)cortex_a9_r5_enter_critical(); }
+	#define TRACE_EXIT_CRITICAL_SECTION() { cortex_a9_r5_exit_critical((uint32_t)TRACE_ALLOC_CRITICAL_SECTION_NAME); }
+
 	/* INPUT YOUR PERIPHERAL BASE ADDRESS HERE (0xF8F00000 for Xilinx Zynq 7000)*/
 	#define TRC_CA9_MPCORE_PERIPHERAL_BASE_ADDRESS	0
 	
@@ -512,12 +516,13 @@ uint32_t uiTraceTimerGetValue(void);
 #elif (TRC_CFG_HARDWARE_PORT == TRC_HARDWARE_PORT_CYCLONE_V_HPS)
 	#include "alt_clock_manager.h"
 
-	extern TraceUnsignedBaseType_t cortex_a9_r5_enter_critical(void);
-	extern void cortex_a9_r5_exit_critical(TraceUnsignedBaseType_t irq_already_masked_at_enter);
+
+	extern uint32_t cortex_a9_r5_enter_critical(void);
+	extern void cortex_a9_r5_exit_critical(uint32_t irq_already_masked_at_enter);
 
 	#define TRACE_ALLOC_CRITICAL_SECTION() TraceUnsignedBaseType_t TRACE_ALLOC_CRITICAL_SECTION_NAME;
-	#define TRACE_ENTER_CRITICAL_SECTION() { TRACE_ALLOC_CRITICAL_SECTION_NAME = cortex_a9_r5_enter_critical(); }
-	#define TRACE_EXIT_CRITICAL_SECTION() { cortex_a9_r5_exit_critical(TRACE_ALLOC_CRITICAL_SECTION_NAME); }
+	#define TRACE_ENTER_CRITICAL_SECTION() { TRACE_ALLOC_CRITICAL_SECTION_NAME = (TraceUnsignedBaseType_t)cortex_a9_r5_enter_critical(); }
+	#define TRACE_EXIT_CRITICAL_SECTION() { cortex_a9_r5_exit_critical((uint32_t)TRACE_ALLOC_CRITICAL_SECTION_NAME); }
 
 	#define TRC_HWTC_TYPE							TRC_FREE_RUNNING_32BIT_INCR
 	#define TRC_HWTC_COUNT							*((uint32_t *)0xFFFEC200)
@@ -660,14 +665,12 @@ uint32_t uiTraceTimerGetValue(void);
     #define TRC_IRQ_PRIORITY_ORDER 1 // higher IRQ priority values are more significant
 
 #elif (TRC_CFG_HARDWARE_PORT == TRC_HARDWARE_PORT_ARMv8AR_A32)
-    extern TraceUnsignedBaseType_t cortex_a9_r5_enter_critical(void);
-    extern void cortex_a9_r5_exit_critical(TraceUnsignedBaseType_t irq_already_masked_at_enter);
+	extern uint32_t cortex_a9_r5_enter_critical(void);
+	extern void cortex_a9_r5_exit_critical(uint32_t irq_already_masked_at_enter);
 
-    #define TRACE_ALLOC_CRITICAL_SECTION() TraceUnsignedBaseType_t TRACE_ALLOC_CRITICAL_SECTION_NAME;
-
-    #define TRACE_ENTER_CRITICAL_SECTION() { TRACE_ALLOC_CRITICAL_SECTION_NAME = cortex_a9_r5_enter_critical(); }
-
-    #define TRACE_EXIT_CRITICAL_SECTION() { cortex_a9_r5_exit_critical(TRACE_ALLOC_CRITICAL_SECTION_NAME); }
+	#define TRACE_ALLOC_CRITICAL_SECTION() TraceUnsignedBaseType_t TRACE_ALLOC_CRITICAL_SECTION_NAME;
+	#define TRACE_ENTER_CRITICAL_SECTION() { TRACE_ALLOC_CRITICAL_SECTION_NAME = (TraceUnsignedBaseType_t)cortex_a9_r5_enter_critical(); }
+	#define TRACE_EXIT_CRITICAL_SECTION() { cortex_a9_r5_exit_critical((uint32_t)TRACE_ALLOC_CRITICAL_SECTION_NAME); }
 
     #include <cmsis_compiler.h>
 
@@ -690,6 +693,23 @@ uint32_t uiTraceTimerGetValue(void);
     #else
         #error "Only GCC Supported!"
     #endif
+
+#elif (TRC_CFG_HARDWARE_PORT == TRC_HARDWARE_PORT_ADSP_SC5XX_SHARC)
+
+    #define TRACE_ALLOC_CRITICAL_SECTION() TraceUnsignedBaseType_t TRACE_ALLOC_CRITICAL_SECTION_NAME;
+    #define TRACE_ENTER_CRITICAL_SECTION() {TRACE_ALLOC_CRITICAL_SECTION_NAME = (TraceUnsignedBaseType_t)portSET_INTERRUPT_MASK_FROM_ISR();}
+    #define TRACE_EXIT_CRITICAL_SECTION() {portCLEAR_INTERRUPT_MASK_FROM_ISR((UBaseType_t)TRACE_ALLOC_CRITICAL_SECTION_NAME);}
+
+    #define TRC_HWTC_TYPE TRC_FREE_RUNNING_32BIT_INCR
+    #define TRC_HWTC_COUNT ( *pREG_CGU0_TSCOUNT0 )
+    #define TRC_HWTC_PERIOD 1
+    #define TRC_HWTC_DIVISOR 1
+    #define TRC_HWTC_FREQ_HZ ( configCPU_CLOCK_HZ >> 1u )
+
+    #define TRC_PORT_SPECIFIC_INIT() {*pREG_CGU0_TSCTL |= BITM_CGU_TSCTL_EN;}
+
+	/* Set the meaning of IRQ priorities in ISR tracing - see above */
+	#define TRC_IRQ_PRIORITY_ORDER 1
 
 #elif (TRC_CFG_HARDWARE_PORT == TRC_HARDWARE_PORT_APPLICATION_DEFINED)
 

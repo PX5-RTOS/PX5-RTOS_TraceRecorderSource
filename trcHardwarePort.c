@@ -1,5 +1,5 @@
 /*
- * Trace Recorder for Tracealyzer v4.8.1
+ * Trace Recorder for Tracealyzer v4.10.3
  * Copyright 2023 Percepio AB
  * www.percepio.com
  *
@@ -83,11 +83,11 @@ void xTraceHardwarePortInitCortexM(void)
 
 #define CS_TYPE_INVALID 0xFFFFFFFF
 
-TraceUnsignedBaseType_t cortex_a9_r5_enter_critical(void)
+uint32_t cortex_a9_r5_enter_critical(void)
 {
 	TraceUnsignedBaseType_t cs_type = CS_TYPE_INVALID;
 #if (TRC_CFG_RECORDER_MODE == TRC_RECORDER_MODE_STREAMING)
-	TraceunsignedBaseType_t uxTraceSystemState;
+	TraceUnsignedBaseType_t uxTraceSystemState;
 
 	xTraceStateGet(&uxTraceSystemState);
 #endif
@@ -124,10 +124,10 @@ TraceUnsignedBaseType_t cortex_a9_r5_enter_critical(void)
     	cs_type = CS_TYPE_TASK;
     }
 
-	return cs_type;
+	return (uint32_t)cs_type;
 }
 
-void cortex_a9_r5_exit_critical(TraceUnsignedBaseType_t cs_type)
+void cortex_a9_r5_exit_critical(uint32_t cs_type)
 {
 	switch (cs_type)
 	{
