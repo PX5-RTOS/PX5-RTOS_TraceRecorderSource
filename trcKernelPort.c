@@ -225,10 +225,26 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
                            (TraceUnsignedBaseType_t)param1);
         break;
 
+        case PX5_PTHREAD_GETSPECIFIC_ID:
+        xTraceEventCreate1(PSF_EVENT_PTHREAD_GETSPECIFIC,
+                           (TraceUnsignedBaseType_t)param0);
+        break;
+
         case PX5_PTHREAD_KILL_ID:
         xTraceEventCreate2(PSF_EVENT_PTHREAD_KILL,
                            (TraceUnsignedBaseType_t)param0,
                            (TraceUnsignedBaseType_t)param1);
+        break;
+
+        case PX5_PTHREAD_KEY_CREATE_ID:
+        xTraceEventCreate2(PSF_EVENT_PTHREAD_KEY_CREATE,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1);
+        break;
+
+        case PX5_PTHREAD_KEY_DELETE_ID:
+        xTraceEventCreate1(PSF_EVENT_PTHREAD_KEY_DELETE,
+                           (TraceUnsignedBaseType_t)param0);
         break;
 
         case PX5_PTHREAD_RESUME_ID:
@@ -255,6 +271,12 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
 
         case PX5_PTHREAD_SETCANCELTYPE_ID:
         xTraceEventCreate2(PSF_EVENT_PTHREAD_SETCANCELTYPE,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1);
+        break;
+
+        case PX5_PTHREAD_SETSPECIFIC_ID:
+        xTraceEventCreate2(PSF_EVENT_PTHREAD_SETSPECIFIC,
                            (TraceUnsignedBaseType_t)param0,
                            (TraceUnsignedBaseType_t)param1);
         break;
@@ -381,6 +403,13 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
                            (TraceUnsignedBaseType_t)param1);
         break;
 
+        case PX5_PTHREAD_CONDITION_VAR_INFORMATION_GET_ID:
+        xTraceEventCreate3(PSF_EVENT_PX5_PTHREAD_COND_INFORMATION_GET,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1,
+                           (TraceUnsignedBaseType_t)param2);
+        break;
+
         case PX5_PTHREAD_CONDATTR_SETPSHARED_ID:
         xTraceEventCreate2(PSF_EVENT_PTHREAD_CONDATTR_SETPSHARED,
                            (TraceUnsignedBaseType_t)param0,
@@ -390,6 +419,12 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
         case PX5_PTHREAD_EVENT_FLAGS_CLEAR_ID:
         xTraceEventCreate1(PSF_EVENT_PX5_PTHREAD_EVENT_FLAGS_CLEAR,
                            (TraceUnsignedBaseType_t)param0);
+        break;
+
+        case PX5_PTHREAD_EVENT_FLAGS_CLEARSPECIFIC_ID:
+        xTraceEventCreate2(PSF_EVENT_PX5_PTHREAD_EVENT_FLAGS_CLEARSPECIFIC,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1);
         break;
 
         case PX5_PTHREAD_EVENT_FLAGS_CREATE_ID:
@@ -405,8 +440,21 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
                                             0);
         break;
 
+        case PX5_PTHREAD_EVENT_FLAGS_INFORMATION_GET_ID:
+        xTraceEventCreate3(PSF_EVENT_PX5_PTHREAD_EVENT_FLAGS_INFORMATION_GET,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1,
+                           (TraceUnsignedBaseType_t)param2);
+        break;
+
         case PX5_PTHREAD_EVENT_FLAGS_SET_ID:
         xTraceEventCreate2(PSF_EVENT_PX5_PTHREAD_EVENT_FLAGS_SET,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1);
+        break;
+
+        case PX5_PTHREAD_EVENT_FLAGS_SET_NOTIFY_ID:
+        xTraceEventCreate2(PSF_EVENT_PX5_PTHREAD_EVENT_FLAGS_SET_NOTIFY,
                            (TraceUnsignedBaseType_t)param0,
                            (TraceUnsignedBaseType_t)param1);
         break;
@@ -437,6 +485,12 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
                            (TraceUnsignedBaseType_t)param0);
         break;
 
+        case PX5_PTHREAD_EVENT_FLAGSATTR_GETAUTOCONSUMEMASK_ID:
+        xTraceEventCreate2(PSF_EVENT_PX5_PTHREAD_EVENT_FLAGSATTR_GETAUTOCONSUMEMASK,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1);
+        break;
+
         case PX5_PTHREAD_EVENT_FLAGSATTR_GETCONTROLADDR_ID:
         xTraceEventCreate2(PSF_EVENT_PX5_PTHREAD_EVENT_FLAGSATTR_GETCONTROLADDR,
                            (TraceUnsignedBaseType_t)param0,
@@ -458,6 +512,12 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
         case PX5_PTHREAD_EVENT_FLAGSATTR_INIT_ID:
         xTraceEventCreate1(PSF_EVENT_PX5_PTHREAD_EVENT_FLAGSATTR_INIT,
                            (TraceUnsignedBaseType_t)param0);
+        break;
+
+        case PX5_PTHREAD_EVENT_FLAGSATTR_SETAUTOCONSUMEMASK_ID:
+        xTraceEventCreate2(PSF_EVENT_PX5_PTHREAD_EVENT_FLAGSATTR_SETAUTOCONSUMEMASK,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1);
         break;
 
         case PX5_PTHREAD_EVENT_FLAGSATTR_SETCONTROLADDR_ID:
@@ -493,11 +553,24 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
                            (TraceUnsignedBaseType_t)param2);
         break;
 
+        case PX5_PTHREAD_FASTQUEUE_INFORMATION_GET_ID:
+        xTraceEventCreate3(PSF_EVENT_PX5_PTHREAD_FASTQUEUE_INFORMATION_GET,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1,
+                           (TraceUnsignedBaseType_t)param2);
+        break;
+
         case PX5_PTHREAD_FASTQUEUE_SEND_ID:
         xTraceEventCreate3(PSF_EVENT_PX5_PTHREAD_FASTQUEUE_SEND,
                            (TraceUnsignedBaseType_t)param0,
                            (TraceUnsignedBaseType_t)param1,
                            (TraceUnsignedBaseType_t)param2);
+        break;
+
+        case PX5_PTHREAD_FASTQUEUE_SEND_NOTIFY_ID:
+        xTraceEventCreate2(PSF_EVENT_PX5_PTHREAD_FASTQUEUE_SEND_NOTIFY,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1);
         break;
 
         case PX5_PTHREAD_FASTQUEUE_TIMEDRECEIVE_ID:
@@ -613,6 +686,13 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
                            (TraceUnsignedBaseType_t)param0);
         break;
 
+        case PX5_PTHREAD_MEMORYPOOL_INFORMATION_GET_ID:
+        xTraceEventCreate3(PSF_EVENT_PX5_PTHREAD_MEMORYPOOL_INFORMATION_GET,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1,
+                           (TraceUnsignedBaseType_t)param2);
+        break;
+
         case PX5_PTHREAD_MEMORYPOOL_TIMEDALLOCATE_ID:
         xTraceEventCreate3(PSF_EVENT_PX5_PTHREAD_MEMORYPOOL_TIMEDALLOCATE,
                            (TraceUnsignedBaseType_t)param0,
@@ -666,6 +746,13 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
         xTraceEventCreate2(PSF_EVENT_PX5_PTHREAD_MEMORYPOOLATTR_SETNAME,
                            (TraceUnsignedBaseType_t)param0,
                            (TraceUnsignedBaseType_t)param1);
+        break;
+
+        case PX5_PTHREAD_MUTEX_INFORMATION_GET_ID:
+        xTraceEventCreate3(PSF_EVENT_PX5_PTHREAD_MUTEX_INFORMATION_GET,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1,
+                           (TraceUnsignedBaseType_t)param2);
         break;
 
         case PX5_PTHREAD_MUTEX_DESTROY_ID:
@@ -773,6 +860,12 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
                            (TraceUnsignedBaseType_t)param1);
         break;
 
+        case PX5_PTHREAD_ONCE_ID:
+        xTraceEventCreate2(PSF_EVENT_PTHREAD_ONCE,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1);
+        break;
+
         case PX5_PTHREAD_PARTITIONPOOL_ALLOCATE_ID:
         xTraceEventCreate3(PSF_EVENT_PX5_PTHREAD_PARTITIONPOOL_ALLOCATE,
                            (TraceUnsignedBaseType_t)param0,
@@ -796,6 +889,13 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
         case PX5_PTHREAD_PARTITIONPOOL_FREE_ID:
         xTraceEventCreate1(PSF_EVENT_PX5_PTHREAD_PARTITIONPOOL_FREE,
                            (TraceUnsignedBaseType_t)param0);
+        break;
+
+        case PX5_PTHREAD_PARTITIONPOOL_INFORMATION_GET_ID:
+        xTraceEventCreate3(PSF_EVENT_PX5_PTHREAD_PARTITIONPOOL_INFORMATION_GET,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1,
+                           (TraceUnsignedBaseType_t)param2);
         break;
 
         case PX5_PTHREAD_PARTITIONPOOL_TIMEDALLOCATE_ID:
@@ -866,6 +966,13 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
                                             0);
         break;
 
+        case PX5_PTHREAD_TICKTIMER_INFORMATION_GET_ID:
+        xTraceEventCreate3(PSF_EVENT_PX5_PTHREAD_TICKTIMER_INFORMATION_GET,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1,
+                           (TraceUnsignedBaseType_t)param2);
+        break;
+
         case PX5_PTHREAD_TICKTIMER_START_ID:
         xTraceEventCreate1(PSF_EVENT_PX5_PTHREAD_TICKTIMER_START,
                            (TraceUnsignedBaseType_t)param0);
@@ -924,6 +1031,20 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
                            (TraceUnsignedBaseType_t)param1);
         break;
 
+        case PX5_PTHREAD_TIMESLICE_CHANGE_ID:
+        xTraceEventCreate3(PSF_EVENT_PX5_PTHREAD_TIMESLICE_CHANGE,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1,
+                           (TraceUnsignedBaseType_t)param2);
+        break;
+
+        case PX5_SEM_INFORMATION_GET_ID:
+        xTraceEventCreate3(PSF_EVENT_PX5_SEM_INFORMATION_GET,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1,
+                           (TraceUnsignedBaseType_t)param2);
+        break;
+
         case PX5_SEM_DESTROY_ID:
         xTraceObjectUnregisterWithoutHandle(PSF_EVENT_SEM_DESTROY,
                                             param0,
@@ -947,6 +1068,12 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
         case PX5_SEM_POST_ID:
         xTraceEventCreate1(PSF_EVENT_SEM_POST,
                            (TraceUnsignedBaseType_t)param0);
+        break;
+
+        case PX5_SEM_POST_NOTIFY_ID:
+        xTraceEventCreate2(PSF_EVENT_SEM_POST_NOTIFY,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1);
         break;
 
         case PX5_SEM_TICKWAIT_ID:
@@ -1130,6 +1257,19 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
                            (TraceUnsignedBaseType_t)param0,
                            (TraceUnsignedBaseType_t)param1,
                            (TraceUnsignedBaseType_t)param2);
+        break;
+
+        case PX5_MQ_INFORMATION_GET_ID:
+        xTraceEventCreate3(PSF_EVENT_PX5_MQ_INFORMATION_GET,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1,
+                           (TraceUnsignedBaseType_t)param2);
+        break;
+
+        case PX5_MQ_SEND_NOTIFY_ID:
+        xTraceEventCreate2(PSF_EVENT_PX5_MQ_SEND_NOTIFY,
+                           (TraceUnsignedBaseType_t)param0,
+                           (TraceUnsignedBaseType_t)param1);
         break;
 
         case PX5_MQ_GETATTR_ID:
