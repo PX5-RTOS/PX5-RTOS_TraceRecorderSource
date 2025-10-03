@@ -403,7 +403,7 @@ void px5_system_trace_api_extension(int event_id, void *param0, void *param1, vo
                            (TraceUnsignedBaseType_t)param1);
         break;
 
-        case PX5_PTHREAD_CONDITION_VAR_INFORMATION_GET_ID:
+        case PX5_PTHREAD_COND_INFORMATION_GET_ID:
         xTraceEventCreate3(PSF_EVENT_PX5_PTHREAD_COND_INFORMATION_GET,
                            (TraceUnsignedBaseType_t)param0,
                            (TraceUnsignedBaseType_t)param1,
